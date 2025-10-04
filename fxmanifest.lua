@@ -3,7 +3,9 @@ game 'gta5'
 lua54 'yes'
 author 'Trippler Hub'
 dependencies {
-  'ox_inventory'
+  'ox_inventory',
+  'ox_lib',
+  'ox_target'
 }
 
 shared_scripts {
