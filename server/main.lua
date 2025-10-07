@@ -1,7 +1,7 @@
 local config = require 'config.server'
 
 lib.callback.register('tr_criminiltasks:server:receiveItem', function(source)
-  local roll = math.random(1, 100)   -- 1 to 100 chance
+  local roll = math.random(1, 100)
   local cumulative = 0
   local selectedItem, selectedAmount
 
