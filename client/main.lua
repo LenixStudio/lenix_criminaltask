@@ -103,6 +103,7 @@ local function takeThePackage()
       type = 'success'
     })
     isPlayerFree = true
+    RemoveBlip(waypoint)
   else
     ClearPedTasks(playerPed)
     lib.notify({
