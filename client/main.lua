@@ -1,7 +1,12 @@
+local lib = exports.tr_lib:require '@tr_lib/init'
+local require<const> = function(arg) return lib.require(arg) end
 local config = require 'config.client'
 local isPlayerFree = true
 local waypoint, prop
 local export = exports.qbx_core
+local bridge = require 'client.bridge'
+local progress = bridge.progress
+local target = bridge.target
 
 local function createPed(pedModel, pedCoords, pedScenario)
   RequestModel(GetHashKey(pedModel))
@@ -75,21 +80,14 @@ local function takeThePackage()
     false,
     false
   )
-  if lib.progressBar({
-    duration = 1000,
-    position = 'bottom',
-    label = locale.progressBar,
-    useWhileDead = false,
-    canCancel = true,
-    disable = { move = true, car = true, combat = true },
-  }) then
+  if progress(locale) then
     ClearPedTasks(playerPed)
     local callback = lib.callback.await('tr_criminiltasks:server:receiveItem', GetPlayerServerId(playerPed))
     if not callback.success then
-      lib.notify({
-        title = "Error",
-        description = ("Something went wrong, Could not give item: %s, Please contact support"):format(callback.error),
-        type = "error"
+      export:Notify({
+        text = "Error",
+        subTitle = ("Something went wrong, Could not give item: %s, Please contact support"):format(callback.error),
+        notifyType = "error"
       })
       return
   end
@@ -97,19 +95,19 @@ local function takeThePackage()
 
     DeleteEntity(prop)
 
-    lib.notify({
-      title = locale.title,
-      description = locale.success,
-      type = 'success'
+    export:Notify({
+      text = locale.title,
+      subTitle = locale.success,
+      notifyType = 'success'
     })
     isPlayerFree = true
     RemoveBlip(waypoint)
   else
     ClearPedTasks(playerPed)
-    lib.notify({
-      title = locale.canceled,
-      description = locale.description,
-      type = 'error'
+    export:Notify({
+      text = locale.canceled,
+      subTitle = locale.description,
+      notifyType = 'error'
     })
   end
 end
@@ -129,17 +127,7 @@ local function createPackage(coords)
 
   SetEntityAsMissionEntity(prop, true, true)
 
-  exports.ox_target:addLocalEntity(prop, {
-    {
-      name = tostring(prop),
-      icon = target.icon,
-      label = target.label,
-      distance = target.distance,
-      onSelect = function()
-        takeThePackage()
-      end
-    }
-  })
+  target.addLocalEntity(prop, target)
   return prop
 end
 
@@ -155,7 +143,7 @@ local function abortTask()
   RemoveBlip(waypoint)
   export:Notify(config.settings.task.notify.abort, 'error', 10000)
   DeleteEntity(prop)
-  exports.ox_target:removeLocalEntity(prop, tostring(prop))
+  target.removeLocalEntity(prop)
   prop = nil
 end
 
@@ -163,35 +151,7 @@ CreateThread(function()
   for pedIndex, data in pairs(config.peds) do
     local pedCoords = data.Coords
     createPed(data.model, pedCoords, data.scenario)
-    exports.ox_target:addBoxZone({
-      coords = vec3(pedCoords.x, pedCoords.y, pedCoords.z),
-      size = vec3(1, 1, 2),
-      debug = false,
-      options = {
-        {
-          label = config.settings.ped.take.targetLabel,
-          icon = config.settings.ped.take.targetIcon,
-          onSelect = function()
-            takeTask()
-          end,
-          canInteract = function()
-            return isPlayerFree
-          end,
-          distance = config.settings.ped.take.distance,
-        },
-        {
-          label = config.settings.ped.abort.targetLabel,
-          icon = config.settings.ped.abort.targetIcon,
-          onSelect = function()
-            abortTask()
-          end,
-          canInteract = function()
-            return not isPlayerFree
-          end,
-          distance = config.settings.ped.abort.distance,
-        },
-      }
-    })
+    target.addBoxZone(pedCoords, config, takeTask, isPlayerFree, abortTask)
   end
 end)
 
