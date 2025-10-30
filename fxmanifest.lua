@@ -4,16 +4,13 @@ lua54 'yes'
 dependencies {
   'qbx_core',
   'ox_inventory',
-  'ox_lib',
-  'ox_target'
+  'tr_lib',
 }
 
 author 'Trippler'
 docs 'https://docs.trippler.store'
+version '1.0.1'
 
-shared_scripts {
-  '@ox_lib/init.lua'
-}
 server_scripts {
   'server/main.lua',
   'config/server.lua'
@@ -24,5 +21,7 @@ client_scripts {
 }
 
 escrow_ignore {
-  'config/*.lua'
+  'config/client.lua',
+  'config/server.lua',
+  'client/bridge.lua',
 }
