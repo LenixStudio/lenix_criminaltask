@@ -9,15 +9,19 @@ dependencies {
 
 author 'Trippler'
 docs 'https://docs.trippler.store'
-version '1.0.1'
+version '1.0.2'
+
+files {
+  'config/server.lua',
+  'config/client.lua',
+  'client/bridge.lua',
+}
 
 server_scripts {
   'server/main.lua',
-  'config/server.lua'
 }
 client_scripts {
   'client/main.lua',
-  'config/client.lua'
 }
 
 escrow_ignore {

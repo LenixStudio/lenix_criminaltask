@@ -1,10 +1,10 @@
 local lib = exports.tr_lib:require '@tr_lib/init'
 local require<const> = function(arg) return lib.require(arg) end
-local config = require 'config.client'
+local config = require 'config/client'
 local isPlayerFree = true
 local waypoint, prop
 local export = exports.qbx_core
-local bridge = require 'client.bridge'
+local bridge = require 'client/bridge'
 local progress = bridge.progress
 local target = bridge.target
 

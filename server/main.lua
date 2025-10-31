@@ -1,6 +1,6 @@
 local lib<const> = exports.tr_lib:require '@tr_lib/init'
 local require<const> = function(arg) return lib.require(arg) end
-local config = require 'config.server'
+local config = require 'config/server'
 
 lib.callback.register('tr_criminiltasks:server:receiveItem', function(source)
   local roll = math.random(1, 100)
