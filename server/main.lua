@@ -1,4 +1,4 @@
-local lib<const> = exports.tr_lib:require '@tr_lib/init'
+local lib<const> = exports.tr_lib:require '@tr_lib/get'
 local require<const> = function(arg) return lib.require(arg) end
 local config = require 'config/server'
 
