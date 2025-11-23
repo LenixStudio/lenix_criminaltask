@@ -82,7 +82,7 @@ local function takeThePackage()
   )
   if progress(locale) then
     ClearPedTasks(playerPed)
-    local callback = lib.callback.await('tr_criminiltasks:server:receiveItem', GetPlayerServerId(playerPed))
+    local callback = lib.callback.await('tr_criminiltasks:server:receiveItem')
     if not callback.success then
       export:Notify({
         text = "Error",
