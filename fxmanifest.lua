@@ -8,7 +8,7 @@ dependencies {
 
 author 'Trippler'
 docs 'https://docs.trippler.store'
-version '1.0.2'
+version '1.0.3'
 
 files {
   'config/server.lua',
@@ -29,3 +29,4 @@ escrow_ignore {
   'client/bridge.lua',
 
 }
+
