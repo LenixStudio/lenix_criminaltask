@@ -3,7 +3,6 @@ game 'gta5'
 lua54 'yes'
 dependencies {
   'qbx_core',
-  'ox_inventory',
   'tr_lib',
 }
 
@@ -28,4 +27,5 @@ escrow_ignore {
   'config/client.lua',
   'config/server.lua',
   'client/bridge.lua',
+
 }
