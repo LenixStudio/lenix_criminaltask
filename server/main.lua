@@ -2,7 +2,7 @@ local lib<const> = exports.tr_lib:require '@tr_lib/get'
 local require<const> = function(arg) return lib.require(arg) end
 local config = require 'config/server'
 
-lib.callback.register('tr_criminiltasks:server:receiveItem', function(source)
+lib.callback.register('lenix_criminiltasks:server:receiveItem', function(source)
   local roll = math.random(1, 100)
   local cumulative = 0
   local selectedItem, selectedAmount

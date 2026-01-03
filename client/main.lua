@@ -60,58 +60,6 @@ local function createWayPoint()
   return coords
 end
 
-local function takeThePackage()
-  local locale = config.settings.task.notify
-  local playerPed = cache.ped
-  local dict = "pickup_object"
-  RequestAnimDict(dict)
-  while not HasAnimDictLoaded(dict) do Wait(0) end
-
-  TaskPlayAnim(
-    playerPed,
-    "pickup_object",
-    "pickup_low",
-    1.5,
-    1.5,
-    1000,
-    49,
-    0,
-    false,
-    false,
-    false
-  )
-  if progress(locale) then
-    ClearPedTasks(playerPed)
-    local callback = lib.callback.await('tr_criminiltasks:server:receiveItem')
-    if not callback.success then
-      export:Notify({
-        text = "Error",
-        subTitle = ("Something went wrong, Could not give item: %s, Please contact support"):format(callback.error),
-        notifyType = "error"
-      })
-      return
-  end
-    assert(callback.success == true, ("Failed to give %s, the reason: %s"):format(callback.selectedItem, callback.response))
-
-    DeleteEntity(prop)
-
-    export:Notify({
-      text = locale.title,
-      subTitle = locale.success,
-      notifyType = 'success'
-    })
-    isPlayerFree = true
-    RemoveBlip(waypoint)
-  else
-    ClearPedTasks(playerPed)
-    export:Notify({
-      text = locale.canceled,
-      subTitle = locale.description,
-      notifyType = 'error'
-    })
-  end
-end
-
 local function createPackage(coords)
   local task = config.settings.task
   local model = task.propModel
@@ -145,6 +93,58 @@ local function abortTask()
   DeleteEntity(prop)
   target.removeLocalEntity(prop)
   prop = nil
+end
+
+function TakeThePackage()
+  local locale = config.settings.task.notify
+  local playerPed = cache.ped
+  local dict = "pickup_object"
+  RequestAnimDict(dict)
+  while not HasAnimDictLoaded(dict) do Wait(0) end
+
+  TaskPlayAnim(
+    playerPed,
+    "pickup_object",
+    "pickup_low",
+    1.5,
+    1.5,
+    1000,
+    49,
+    0,
+    false,
+    false,
+    false
+  )
+  if progress(locale) then
+    ClearPedTasks(playerPed)
+    local callback = lib.callback.await('lenix_criminiltasks:server:receiveItem')
+    if not callback.success then
+      export:Notify({
+        text = "Error",
+        subTitle = ("Something went wrong, Could not give item: %s, Please contact support"):format(callback.error),
+        notifyType = "error"
+      })
+      return
+  end
+    assert(callback.success == true, ("Failed to give %s, the reason: %s"):format(callback.selectedItem, callback.response))
+
+    DeleteEntity(prop)
+
+    export:Notify({
+      text = locale.title,
+      subTitle = locale.success,
+      notifyType = 'success'
+    })
+    isPlayerFree = true
+    RemoveBlip(waypoint)
+  else
+    ClearPedTasks(playerPed)
+    export:Notify({
+      text = locale.canceled,
+      subTitle = locale.description,
+      notifyType = 'error'
+    })
+  end
 end
 
 CreateThread(function()
