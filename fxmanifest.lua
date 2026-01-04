@@ -6,9 +6,8 @@ dependencies {
   'tr_lib',
 }
 
-author 'Trippler'
-docs 'https://docs.trippler.store'
-version '1.0.3'
+author 'https://github.com/LenixDev'
+version '1.0.4'
 
 files {
   'config/server.lua',
@@ -22,11 +21,3 @@ server_scripts {
 client_scripts {
   'client/main.lua',
 }
-
-escrow_ignore {
-  'config/client.lua',
-  'config/server.lua',
-  'client/bridge.lua',
-
-}
-
