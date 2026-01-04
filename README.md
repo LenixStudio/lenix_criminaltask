@@ -1,6 +1,20 @@
 # lenix_criminaltask
 A fun task for criminal characters
 
+# About
+### Introduction
+Welcome to Criminal Task.
+
+This script is designed to enhance your server's gameplay by:
+* Adding a fun task that makes the player search for a random NPC and request a task from him, then a location'll be mark on the map to the unknown box so he pick it up and goes to the next task
+
+### Instructions
+* Installation: drag and drop
+* Environment: QBox
+* Support: available
+
+> Enjoy your improved gaming experience with Criminal Task!
+
 # Config
 
 ## Configuration
