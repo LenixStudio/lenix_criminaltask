@@ -1,23 +1,17 @@
 fx_version 'cerulean'
 game 'gta5'
-lua54 'yes'
 dependencies {
   'qbx_core',
-  'tr_lib',
 }
 
 author 'https://github.com/LenixDev'
-version '1.0.4'
+version '2.0.0'
 
+client_script 'build/client.js'
+server_script 'build/server.js'
+
+ui_page 'nui/public/index.html'
 files {
-  'config/server.lua',
-  'config/client.lua',
-  'client/bridge.lua',
-}
-
-server_scripts {
-  'server/main.lua',
-}
-client_scripts {
-  'client/main.lua',
+  'nui/public/index.html',
+  'build/nui.js'
 }
