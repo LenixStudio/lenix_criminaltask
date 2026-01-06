@@ -10,6 +10,12 @@ This script is designed to enhance your server's gameplay by:
 
 ### Instructions
 * Installation: configure your [client api](./client/api/index.ts) and [server api](./server/api/index.ts)
+ * Node.js: make sure you have the Node.js installed on your device, to do so run: 
+  ```bash
+  node -v
+  ```
+  1. run: npm i
+  2. run: npm run build
 * Environment: QBox
 * Support: available
 
